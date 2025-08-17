@@ -8,7 +8,7 @@ type IngredientProps = {
 const Ingredient: React.FC<IngredientProps> = ({ ingredient }) => {
   return (
     <div
-      className="relative flex flex-col justify-center items-center border border-zinc-200 w-20 h-20 rounded-xl cursor-pointer text-zinc-500  hover:border-zinc-400 hover:text-zinc-950 transition-all"
+      className="relative flex flex-col justify-center items-center border border-zinc-200 w-20 h-20 rounded-xl cursor-pointer text-zinc-500  hover:border-teal-800 hover:text-teal-800 transition-all"
       title={ingredient.amount + " " + ingredient.unit + " " + ingredient.name}
     >
       <img

@@ -9,7 +9,7 @@ type FoodCardProps = {
 const FoodItem: React.FC<FoodCardProps> = ({ food, setFoodId }) => {
   return (
     <div
-      className="flex flex-col justify-around relative px-2 py-4 border border-zinc-200  sm:h-80 md:h-56 lg:h-64  rounded-xl cursor-pointer text-zinc-500  hover:border-zinc-400 hover:text-zinc-950 active:bg-zinc-200 transition-all"
+      className="flex flex-col justify-around relative px-2 py-4 border border-zinc-200  sm:h-80 md:h-56 lg:h-64  rounded-xl cursor-pointer text-zinc-500  hover:border-teal-800 hover:text-teal-800 active:bg-teal-50 transition-all"
       onClick={() => setFoodId(food.id)}
     >
       <img

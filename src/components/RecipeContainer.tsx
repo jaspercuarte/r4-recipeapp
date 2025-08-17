@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RecipeInformation from "./RecipeInformation";
+import Loader from "./Loader";
 
 export type RecipeInfoType = {
   image: string;
@@ -37,9 +38,11 @@ type RecipeContainerProps = {
 
 const RecipeContainer: React.FC<RecipeContainerProps> = ({ foodId }) => {
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfoType>();
+  const [foodInfoLoader, setFoodInfoLoader] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchFoodInfo = async () => {
+      setFoodInfoLoader(true);
       try {
         const foodInfoData = await axios.get(
           `https://api.spoonacular.com/recipes/${foodId}/information`,
@@ -48,6 +51,8 @@ const RecipeContainer: React.FC<RecipeContainerProps> = ({ foodId }) => {
         setRecipeInfo(foodInfoData.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        setFoodInfoLoader(false);
       }
     };
     fetchFoodInfo();
@@ -55,9 +60,13 @@ const RecipeContainer: React.FC<RecipeContainerProps> = ({ foodId }) => {
 
   return (
     <div className="mt-8 bg-white h-min-30 rounded-3xl p-6 w-full">
-      <div className="grid sm:grid-cols-1  lg:grid-cols-2 gap-2">
-        <RecipeInformation recipeInfo={recipeInfo} />
-      </div>
+      {foodInfoLoader ? (
+        <Loader />
+      ) : (
+        <div className="grid sm:grid-cols-1  lg:grid-cols-2 gap-2">
+          <RecipeInformation recipeInfo={recipeInfo} />
+        </div>
+      )}
     </div>
   );
 };

@@ -4,15 +4,16 @@ import { Search } from "lucide-react";
 import type { FoodDataType } from "../App";
 
 type SearchBarProps = {
-  foodData: FoodDataType[];
   setFoodData: (f: FoodDataType[]) => void;
+  setLoader: (b: boolean) => void;
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({ foodData, setFoodData }) => {
-  const [query, setQuery] = useState<string>("");
+const SearchBar: React.FC<SearchBarProps> = ({ setFoodData, setLoader }) => {
+  const [query, setQuery] = useState<string>("chicken");
 
   useEffect(() => {
     const fetchFoods = async () => {
+      setLoader(true);
       try {
         const foodsQueryResponse = await axios.get(
           "https://api.spoonacular.com/recipes/complexSearch",
@@ -22,6 +23,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ foodData, setFoodData }) => {
         setFoodData(foodsQueryResponse.data.results);
       } catch (e) {
         console.error(e);
+      } finally {
+        setLoader(false);
       }
     };
     fetchFoods();

@@ -12,6 +12,7 @@ export type FoodDataType = {
 const App: React.FC = () => {
   const [foodData, setFoodData] = useState<FoodDataType[]>([]);
   const [foodId, setFoodId] = useState<string>("");
+  const [loader, setLoader] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -19,9 +20,9 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-teal-800 w-full h-full rounded-3xl p-6">
-      <SearchBar foodData={foodData} setFoodData={setFoodData} />
+      <SearchBar setFoodData={setFoodData} setLoader={setLoader} />
       {foodId !== "" ? <RecipeInformation foodId={foodId} /> : <></>}
-      <FoodList foodData={foodData} setFoodId={setFoodId} />
+      <FoodList foodData={foodData} setFoodId={setFoodId} loader={loader} />
     </div>
   );
 };
